@@ -13,7 +13,7 @@ function purgeGmail() {
   
   var purge  = Utilities.formatDate(age, Session.getScriptTimeZone(), "yyyy-MM-dd");
     
-  label_list_length = GMAIL_LABELS.length;
+  // label_list_length = GMAIL_LABELS.length;
 
   for (var i = 0; i < label_list_length; i++) { 
     var search = "label:" + GMAIL_LABELS[i] + " before:" + purge;
