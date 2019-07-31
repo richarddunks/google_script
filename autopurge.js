@@ -31,11 +31,12 @@ function purgeGmail() {
                .timeBased()
                .at(new Date((new Date()).getTime() + 1000 * 60 * n))
                .create();
+      console.log("Setting trigger for " + n + " minutes");
     } // end if
 
     // An email thread may have multiple messages and the timestamp of 
     // individual messages can be different.
-    
+    var trash_counter = 0;
     for (var i = 0; i < threads.length; i++) {
       var messages = GmailApp.getMessagesForThread( threads[i] );
       for (var j = 0; j < messages.length; j++) {
@@ -43,12 +44,19 @@ function purgeGmail() {
         if (email.getDate() < age) {
 
           email.moveToTrash();
+          trash_counter++; // iterate the trash counter
           
         } // end if
       } // end j for
     } // end i for
-    
+    console.log("Successfully deleted " + trash_counter + " messages");
+  }   
+  
   // If the script fails for some reason or catches an exception, 
   // it will simply defer auto-purge until the next day.
-  } catch (e) {}
+
+  catch (e) {
+    console.error("Script failed with " + e);
+  }
+  
 } // end function
